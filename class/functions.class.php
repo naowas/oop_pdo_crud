@@ -114,7 +114,7 @@ class Functions extends Database
         return $data = $this->conn->query($query);
     }
 
-       public function delete($id, $filepath_img,$filepath_doc)
+    public function delete($id, $filepath_img, $filepath_doc)
     {
         $query = $this->conn->prepare("DELETE FROM user_info WHERE id = :delete_id");
         $query->bindParam("delete_id", $id, PDO::PARAM_STR);
@@ -122,8 +122,17 @@ class Functions extends Database
         unlink($filepath_img);
         unlink($filepath_doc);
 
-
         echo "<script>alert('Record Deleted')</script>";
         echo "<script>window.open('index.php','_self')</script>";
+    }
+
+    public function edit($id)
+    {
+        $data = $this->conn->prepare("SELECT * FROM user_info WHERE id = :id");
+        $data->execute(array(':id' => $id));
+
+        foreach ($data as $value) {
+            return $value;
+        }
     }
 }
