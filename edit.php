@@ -13,23 +13,15 @@ require 'class/functions.class.php';
             $model = new Functions;
              $id = $_REQUEST['id'];
             $row = $model->edit($id);
-            if (isset($_POST['update'])) {
-                $name = $_POST['name'];
-                $fname = $_POST['fname'];
-                $mname = $_POST['mname'];
-                $mobile = $_POST['mobile'];
-                $email = $_POST['email'];
-                $address = $_POST['address'];
-                $gender = $_POST['gender'];
-                $religion = $_POST['religion'];
-                //$edit_id = $_POST['edit_id'];
-                //$image_path = $_POST['image_path'];
-                //$docfile = $_POST['docfile'];
+            $image_old = $row['image_path'];
+            $docfile_old = $row['docfile'];
+            
+
                 
                 $query = new Functions();
 
-                $query->update($name, $fname,$mname, $mobile,$email, $address,$gender, $religion, $id);
-            }
+                $query->update($image_old, $docfile_old, $id);
+            
             ?>
 
             <div class="form-group">
