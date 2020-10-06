@@ -1,3 +1,15 @@
+
+<!-- Footer -->
+<footer class="page-footer font-small blue" style="background-color: teal;" >
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://naowas.github.io/" style="color: #fff;">Naowas Morshed</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
 <!-- <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.5.1.slim.min.js"></script>
 <script src="assets/js/popper.min.js"></script> -->

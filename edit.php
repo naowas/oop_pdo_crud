@@ -7,6 +7,9 @@ require 'class/functions.class.php';
 ?>
 <div class="container">
     <div class="container-fluid">
+               <?php
+include 'inc/nav.php';
+?>
         <form action="" method="POST" enctype="multipart/form-data">
 
             <?php

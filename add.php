@@ -7,6 +7,9 @@ $model->insert();
 ?>
 <div class="container">
     <div class="container-fluid">
+        <?php
+include 'inc/nav.php';
+?>
         <form action="add.php" method="POST" enctype="multipart/form-data">
 
             <div class="form-group">

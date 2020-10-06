@@ -7,12 +7,14 @@ $rows = $model->fetch();
 ?>
 
 <body>
+
     <div class="container">
         <div class="container-fluid">
             
-
+<?php
+include 'inc/nav.php';
+?>
             <div class="row">
-                <a class="btn btn-primary" href="add.php">Add user</a>
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
