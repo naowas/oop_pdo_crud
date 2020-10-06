@@ -7,21 +7,33 @@ require 'class/functions.class.php';
 ?>
 <div class="container">
     <div class="container-fluid">
-        <form action="add.php" method="POST" enctype="multipart/form-data">
+        <form action="" method="POST" enctype="multipart/form-data">
 
             <?php
             $model = new Functions;
-            $id = $_REQUEST['id'];
+             $id = $_REQUEST['id'];
             $row = $model->edit($id);
-            // if (isset($_POST['update'])) {
-            //     $title = $_POST['title'];
-            //     $body = $_POST['body'];
-            //     $query = new Functions();
-            //     $query->postupdate($title, $body, $id);
-            // }
+            if (isset($_POST['update'])) {
+                $name = $_POST['name'];
+                $fname = $_POST['fname'];
+                $mname = $_POST['mname'];
+                $mobile = $_POST['mobile'];
+                $email = $_POST['email'];
+                $address = $_POST['address'];
+                $gender = $_POST['gender'];
+                $religion = $_POST['religion'];
+                //$edit_id = $_POST['edit_id'];
+                //$image_path = $_POST['image_path'];
+                //$docfile = $_POST['docfile'];
+                
+                $query = new Functions();
+
+                $query->update($name, $fname,$mname, $mobile,$email, $address,$gender, $religion, $id);
+            }
             ?>
 
             <div class="form-group">
+
                 <label for="name">Name</label>
                 <input type="text" name="name" class="form-control" id="name" value="<?php echo $row['name']; ?>">
             </div>
@@ -147,13 +159,14 @@ require 'class/functions.class.php';
             </div>
 
             <div class="form-group">
+                <label for="filename">Uploaded File -->> <?php echo $row['docfile'];?></label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" name="docfile" id="docfile">
                     <label class="custom-file-label" for="customFile">Doc File</label>
                 </div>
             </div>
 
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" name="update" class="btn btn-primary">Update</button>
         </form>
     </div>
 </div>

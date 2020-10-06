@@ -134,5 +134,25 @@ class Functions extends Database
         foreach ($data as $value) {
             return $value;
         }
+
+    }
+
+    public function update($name, $fname, $mname, $mobile, $email, $address, $gender, $religion, $id)
+    {
+        $sql = "UPDATE user_info SET name = :name, fname = :fname, mname = :mname, mobile= :mobile, email=:email, address=:address, gender=:gender, religion=:religion  WHERE id = :id";
+        $query = $this->conn->prepare($sql);
+        $query->bindParam("name", $name, PDO::PARAM_STR);
+        $query->bindParam("fname", $fname, PDO::PARAM_STR);
+        $query->bindParam("mname", $mname, PDO::PARAM_STR);
+        $query->bindParam("mobile", $mobile, PDO::PARAM_STR);
+        $query->bindParam("email", $email, PDO::PARAM_STR);
+        $query->bindParam("address", $address, PDO::PARAM_STR);
+        $query->bindParam("gender", $gender, PDO::PARAM_STR);
+        $query->bindParam("religion", $religion, PDO::PARAM_STR);
+        $query->bindParam("id", $id, PDO::PARAM_STR);
+        $query->execute();
+        echo "<script>alert('Record Has been updated')</script>";
+        echo "<script>window.open('index.php','_self')</script>";
+
     }
 }
