@@ -1,8 +1,60 @@
 <?php
 include 'inc/header.php';
 require 'class/functions.class.php';
-$model = new Functions();
-$model->insert();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['submit'])) {
+
+        $data['name'] = $_POST['name'];
+        $data['fname'] = $_POST['fname'];
+        $data['mname'] = $_POST['mname'];
+        $data['mobile'] = $_POST['mobile'];
+        $data['email'] = $_POST['email'];
+        $data['address'] = $_POST['address'];
+        $data['gender'] = $_POST['gender'];
+        $data['religion'] = $_POST['religion'];
+        $data['agree'] = $_POST['agree'];
+
+        //File Part
+
+        $timestamp = time();
+        $docfile = $_FILES["docfile"]["name"];
+        $temp_doc = $_FILES["docfile"]["tmp_name"];
+        $file_size = $_FILES["docfile"]["size"];
+        $target_doc_dir = "uploads/";
+        $data['docfile'] = $target_doc_file = strtolower($target_doc_dir .$timestamp. basename($docfile));
+        $doc_file_type = pathinfo($target_doc_file, PATHINFO_EXTENSION);
+
+        if ($doc_file_type != "docx" && $doc_file_type != "ppt" && $doc_file_type != "pdf" && $doc_file_type != "xls") {
+            echo "<script>alert('Docx, PPT, PDF and XLS files are allowed!')</script>";
+        } else {
+            $movfile = move_uploaded_file($temp_doc, $target_doc_file);
+        }
+
+
+        //image Part
+
+        $imgfile = $_FILES["image"]["name"];
+        $temp_img = $_FILES["image"]["tmp_name"];
+        $file_size = $_FILES["image"]["size"];
+        $target_img_dir = "uploads/";
+        $data['image_path'] = $target_img_file = strtolower($target_img_dir .$timestamp. basename($imgfile));
+        $img_file_type = pathinfo($target_img_file, PATHINFO_EXTENSION);
+
+        if ($img_file_type != "jpg" && $img_file_type != "png" && $img_file_type != "jpeg" && $img_file_type != "gif") {
+              echo "<script>alert('png, jpg, gif and JPEG files are allowed!')</script>";
+        } else {
+            $movfile = move_uploaded_file($temp_img, $target_img_file);
+        }
+
+
+        $table_name = "user_info";
+        $obj = new Functions();
+        $obj->insert($data, $table_name);
+
+    }
+
+}
 
 ?>
 <div class="container">
@@ -81,7 +133,7 @@ include 'inc/nav.php';
                     <input class="form-check-input" name="agree" type="checkbox" value="yes" id="agree_yes">
                     <label class="form-check-label" for="agree">Yes</label>
                 </div>
-            
+
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

@@ -2,7 +2,8 @@
 include 'inc/header.php';
 require 'class/functions.class.php';
 $model = new Functions();
-$rows = $model->fetch();
+$table_name = "user_info";
+$rows = $model->fetch($table_name);
 
 ?>
 
@@ -58,7 +59,7 @@ include 'inc/nav.php';
                 <?php
 
                 $model = new Functions();
-                $rows = $model->fetch();
+                $rows = $model->fetch($table_name);
                 if (!empty($rows)) {
                     foreach ($rows as $row) {
 
@@ -67,7 +68,8 @@ include 'inc/nav.php';
                             $filepath_img = $row['image_path'];
                             $filepath_doc = $row['docfile'];
                             $id = $_POST['delete_id'];
-                            $del = $model->delete($id, $filepath_img, $filepath_doc);
+                            $table_name = "user_info";
+                            $del = $model->delete($id, $table_name, $filepath_img, $filepath_doc);
                         }
                 ?>
                         <!-- modal small -->

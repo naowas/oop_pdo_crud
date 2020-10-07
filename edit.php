@@ -12,20 +12,29 @@ include 'inc/nav.php';
 ?>
         <form action="" method="POST" enctype="multipart/form-data">
 
-            <?php
+<?php
             $model = new Functions;
-             $id = $_REQUEST['id'];
+            $id = $_REQUEST['id'];
             $row = $model->edit($id);
             $image_old = $row['image_path'];
             $docfile_old = $row['docfile'];
-            
 
-                
-                $query = new Functions();
+            $data['name'] = $_POST['name'];
+            $data['fname'] = $_POST['fname'];
+            $data['mname'] = $_POST['mname'];
+            $data['mobile'] = $_POST['mobile'];
+            $data['email'] = $_POST['email'];
+            $data['address'] = $_POST['address'];
+            $data['gender'] = $_POST['gender'];
+            $data['religion'] = $_POST['religion'];
+            $data['agree'] = $_POST['agree'];
 
-                $query->update($image_old, $docfile_old, $id);
-            
-            ?>
+            $table_name = "user_info";
+            $query = new Functions();
+
+            $query->update($data, $table_name, $image_old, $docfile_old, $id);
+
+?>
 
             <div class="form-group">
 
@@ -56,8 +65,8 @@ include 'inc/nav.php';
 
             <?php
 
-            if ($row['gender'] == "Male") {;
-            ?>
+if ($row['gender'] == "Male") {;
+    ?>
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <div class="form-check-inline">
@@ -73,13 +82,13 @@ include 'inc/nav.php';
                     </div>
                 </div>
             <?php
-            }
-            ?>
+}
+?>
 
 
             <?php
-            if ($row['gender'] == "Female") {;
-            ?>
+if ($row['gender'] == "Female") {;
+    ?>
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <div class="form-check-inline">
@@ -95,13 +104,13 @@ include 'inc/nav.php';
                     </div>
                 </div>
             <?php
-            }
-            ?>
+}
+?>
 
 
             <?php
-            if ($row['religion'] === "Islam") {;
-            ?>
+if ($row['religion'] === "Islam") {;
+    ?>
                 <div class="form-group">
                     <label for="religion">Religion</label>
                     <select class="custom-select" name="religion">
@@ -111,12 +120,12 @@ include 'inc/nav.php';
                     </select>
                 </div>
             <?php
-            }
-            ?>
+}
+?>
 
             <?php
-            if ($row['religion'] === "Hindu") {;
-            ?>
+if ($row['religion'] === "Hindu") {;
+    ?>
                 <div class="form-group">
                     <label for="religion">Religion</label>
                     <select class="custom-select" name="religion">
@@ -126,12 +135,12 @@ include 'inc/nav.php';
                     </select>
                 </div>
             <?php
-            }
-            ?>
+}
+?>
 
             <?php
-            if ($row['religion'] === "Christian") {;
-            ?>
+if ($row['religion'] === "Christian") {;
+    ?>
                 <div class="form-group">
                     <label for="religion">Religion</label>
                     <select class="custom-select" name="religion">
@@ -141,12 +150,12 @@ include 'inc/nav.php';
                     </select>
                 </div>
             <?php
-            }
-            ?>
+}
+?>
 
 
             <div class="form-group">
-                <img style="width: 50px; height:50px;" src="<?php echo $row['image_path'];?>" alt="">
+                <img style="width: 50px; height:50px;" src="<?php echo $row['image_path']; ?>" alt="">
                 <div class="custom-file">
                     <input type="file" name="image" class="custom-file-input" id="image">
                     <label class="custom-file-label" for="customFile">Image</label>
@@ -154,7 +163,7 @@ include 'inc/nav.php';
             </div>
 
             <div class="form-group">
-                <label for="filename">Uploaded File -->> <?php echo $row['docfile'];?></label>
+                <label for="filename">Uploaded File -->> <?php echo $row['docfile']; ?></label>
                 <div class="custom-file">
                     <input type="file" class="custom-file-input" name="docfile" id="docfile">
                     <label class="custom-file-label" for="customFile">Doc File</label>

@@ -15,7 +15,8 @@ include 'inc/nav.php';
             <?php
             $model = new Functions;
             $id = $_REQUEST['id'];
-            $row = $model->viewbyid($id);
+            $table_name = "user_info";
+            $row = $model->viewbyid($id,$table_name);
             ?>
 
             <div class="form-group">
