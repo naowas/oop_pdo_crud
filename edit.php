@@ -14,34 +14,46 @@ include 'inc/nav.php';
 
 <?php
 
+$model = new Functions;
+$id = $_REQUEST['id'];
+$row = $model->edit($id);
+$image_old = $row['image_path'];
+$docfile_old = $row['docfile'];
 
-            
-            $model = new Functions;
-            $id = $_REQUEST['id'];
-            $row = $model->edit($id);
-            $image_old = $row['image_path'];
-            $docfile_old = $row['docfile'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['update'])) {
+        $data['name'] = $_POST['name'];
+        $data['fname'] = $_POST['fname'];
+        $data['mname'] = $_POST['mname'];
+        $data['mobile'] = $_POST['mobile'];
+        $data['email'] = $_POST['email'];
+        $data['address'] = $_POST['address'];
+        $data['gender'] = $_POST['gender'];
+        $data['religion'] = $_POST['religion'];
+        
+        // $data['docfile'] = $_FILES['docfile'];
+        // $data['agree'] = $_POST['agree'];
 
+        $image = $_FILES["image"]["name"];
+        $temp_image = $_FILES["image"]["tmp_name"];
+        $file_size = $_FILES["image"]["size"];
+        $target_dir = "uploads/";
+       $data['image_path'] = $target_file = strtolower($target_dir . basename($image));
+        $img_file_type = pathinfo($target_file, PATHINFO_EXTENSION);
 
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                if (isset($_POST['update'])) {
-                    $data['name'] = $_POST['name'];
-                    $data['fname'] = $_POST['fname'];
-                    $data['mname'] = $_POST['mname'];
-                    $data['mobile'] = $_POST['mobile'];
-                    $data['email'] = $_POST['email'];
-                    $data['address'] = $_POST['address'];
-                    $data['gender'] = $_POST['gender'];
-                    $data['religion'] = $_POST['religion']; 
-                    // $data['image_path'] = $_FILES['image_path'];
-                    // $data['docfile'] = $_FILES['docfile']; 
-                    // $data['agree'] = $_POST['agree']; 
-                     $table_name = "user_info";
-                  
-                    $query = new Functions();
-                    $query->update($data, $table_name, $image_old, $docfile_old, $id);
-                }
-            }
+        if ($img_file_type != "jpg" && $img_file_type != "png" && $img_file_type != "jpeg" && $img_file_type != "gif") {
+            echo "<script>alert('jpg, png, jpeg and gif files are allowed!')</script>";
+
+        } else {
+            $move_img = move_uploaded_file($temp_image, $target_file);
+        }
+
+        $table_name = "user_info";
+
+        $query = new Functions();
+        $query->update($data, $table_name, $image_old, $docfile_old, $id);
+    }
+}
 ?>
 
             <div class="form-group">
