@@ -16,7 +16,8 @@ include 'inc/nav.php';
 
 $model = new Functions;
 $id = $_REQUEST['id'];
-$row = $model->edit($id);
+$table_name= "user_info";
+$row = $model->viewbyid($id,$table_name);
 $image_old = $row['image_path'];
 $docfile_old = $row['docfile'];
 
@@ -31,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $data['gender'] = $_POST['gender'];
         $data['religion'] = $_POST['religion'];
         
-        // $data['docfile'] = $_FILES['docfile'];
-        // $data['agree'] = $_POST['agree'];
+      
+        $uniqueid = uniqid();
 
         $image = $_FILES["image"]["name"];
         $temp_image = $_FILES["image"]["tmp_name"];
         $file_size = $_FILES["image"]["size"];
         $target_dir = "uploads/";
-       $data['image_path'] = $target_file = strtolower($target_dir . basename($image));
+       $data['image_path'] = $target_file = strtolower($target_dir .$uniqueid. basename($image));
         $img_file_type = pathinfo($target_file, PATHINFO_EXTENSION);
 
         if ($img_file_type != "jpg" && $img_file_type != "png" && $img_file_type != "jpeg" && $img_file_type != "gif") {
@@ -47,6 +48,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             $move_img = move_uploaded_file($temp_image, $target_file);
         }
+
+                /// File Part
+        $docfile = $_FILES["docfile"]["name"];
+        $temp_doc = $_FILES["docfile"]["tmp_name"];
+        $target_doc_dir = "uploads/";
+        $data['docfile'] = $target_doc_file = strtolower($target_doc_dir .$uniqueid. basename($docfile));
+        $doc_file_type = pathinfo($target_doc_file, PATHINFO_EXTENSION);
+
+        if ($doc_file_type != "docx" && $doc_file_type != "ppt" && $doc_file_type != "pdf" && $doc_file_type != "xls") {
+            echo "<script>alert('Docx, PPT, PDF and XLS files are allowed!')</script>";
+        } else {
+            $movfile = move_uploaded_file($temp_doc, $target_doc_file);
+        }
+
 
         $table_name = "user_info";
 
