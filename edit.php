@@ -13,27 +13,35 @@ include 'inc/nav.php';
         <form action="" method="POST" enctype="multipart/form-data">
 
 <?php
+
+
+            
             $model = new Functions;
             $id = $_REQUEST['id'];
             $row = $model->edit($id);
             $image_old = $row['image_path'];
             $docfile_old = $row['docfile'];
 
-            $data['name'] = $_POST['name'];
-            $data['fname'] = $_POST['fname'];
-            $data['mname'] = $_POST['mname'];
-            $data['mobile'] = $_POST['mobile'];
-            $data['email'] = $_POST['email'];
-            $data['address'] = $_POST['address'];
-            $data['gender'] = $_POST['gender'];
-            $data['religion'] = $_POST['religion'];
-            $data['agree'] = $_POST['agree'];
 
-            $table_name = "user_info";
-            $query = new Functions();
-
-            $query->update($data, $table_name, $image_old, $docfile_old, $id);
-
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                if (isset($_POST['update'])) {
+                    $data['name'] = $_POST['name'];
+                    $data['fname'] = $_POST['fname'];
+                    $data['mname'] = $_POST['mname'];
+                    $data['mobile'] = $_POST['mobile'];
+                    $data['email'] = $_POST['email'];
+                    $data['address'] = $_POST['address'];
+                    $data['gender'] = $_POST['gender'];
+                    $data['religion'] = $_POST['religion']; 
+                    // $data['image_path'] = $_FILES['image_path'];
+                    // $data['docfile'] = $_FILES['docfile']; 
+                    // $data['agree'] = $_POST['agree']; 
+                     $table_name = "user_info";
+                  
+                    $query = new Functions();
+                    $query->update($data, $table_name, $image_old, $docfile_old, $id);
+                }
+            }
 ?>
 
             <div class="form-group">

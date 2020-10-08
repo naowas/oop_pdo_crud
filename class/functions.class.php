@@ -64,28 +64,31 @@ class Functions extends Database
 
     }
 
-    public function update($data, $image_old, $docfile_old, $id, $table_name)
+    public function update($data, $table_name, $image_old, $docfile_old, $id)
     {
         $columns = implode(", ", array_keys($data));
         $escaped_values = array_map(null, array_values($data));
 
         $values = "'" . implode("', '", $escaped_values) . "'";
+        
+        $sql = "UPDATE $table_name SET ($columns) VALUES  $values WHERE id = $id";
+        $query = $this->conn->prepare($sql);
+        var_dump($query);
+        $query->execute();
+        if ($query == true) {
 
-        // $sql = "UPDATE $table_name SET ($columns) VALUES ($values) WHERE id = $id";
-        // $query = $this->conn->prepare($sql);
-        // $query->execute();
-        // if ($query == true) {
+            unlink($docfile_old);
+            unlink($image_old);
 
-        //     unlink($docfile_old);
-        //     unlink($image_old);
+            echo "<script>alert('Record updated with image and DOC file')</script>";
+            echo "<script>window.open('index.php','_self')</script>";
 
-        //     echo "<script>alert('Record Added with image and DOC file')</script>";
-        //     echo "<script>window.open('index.php','_self')</script>";
-
-        // }
+        }
 
     }
 
+
+   
     // public function update($image_old, $docfile_old, $id)
     // {
 
